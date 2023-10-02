@@ -98,10 +98,11 @@
                                             Margin="1"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}}, Path=DeleteItemCommand}"
                                             CommandParameter="{Binding .}"/>
-                                <Frame Grid.Column="1"
-                                 >
+                                <Frame Grid.Column="1" Padding="20, 0, 0, 0">
                                     <Label Text="{Binding TaskName}"
-                                               VerticalOptions="Center"/>
+                                           VerticalOptions="Center"
+                                           FontAttributes="Bold"
+                                           />
                                 </Frame>
                                 <ImageButton
                                             CornerRadius="8"
