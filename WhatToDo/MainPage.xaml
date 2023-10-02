@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+             xmlns:model="clr-namespace:WhatToDo.Model"
+             xmlns:viewmodel="clr-namespace:WhatToDo.ViewModel"
+             x:DataType="viewmodel:MainPageViewModel"
+             x:Class="WhatToDo.MainPage"
+             x:Name="Main"
+             Title="What ToDo">
+
+    <Grid ColumnDefinitions="*"
+          RowDefinitions="auto, auto, *">
+        <Frame
+               Grid.Row="0"
+               CornerRadius="8"
+               Padding="5"
+               Margin="10">
+            <Grid ColumnDefinitions="*, *"
+                  RowDefinitions="auto, auto">
+                <Label Grid.Row="0"
+                       Grid.ColumnSpan="2"
+                       Text="Feladataim"
+                       FontSize="Large"
+                       HorizontalOptions="Center"
+                       Margin="10"/>
+                <VerticalStackLayout Grid.Row="1"
+                                     Grid.Column="0"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center">
+                    <Label FontSize="Small"
+                           Text="Feladatok"/>
+
+                    <Label FontSize="Small"
+                           Text="{Binding TaskNumber}"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+
+                <Frame BorderColor="Black"
+                       CornerRadius="8"
+                       Padding="5"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       HorizontalOptions="Center"
+                       Margin="10">
+                    <HorizontalStackLayout
+                        HorizontalOptions="Center">
+                        <ImageButton 
+                                BackgroundColor="AntiqueWhite"
+                                CornerRadius="8"
+                                Source="plus.png"
+                                HeightRequest="45"
+                                WidthRequest="45"
+                                Padding="5"
+                                Margin="10"
+                                Command="{Binding NavigateAddCommand}"/>
+                        <ImageButton 
+                                BackgroundColor="AntiqueWhite"
+                                CornerRadius="8"
+                                Source="refresh.png"
+                                HeightRequest="45"
+                                WidthRequest="45"
+                                Padding="5"
+                                Margin="10"
+                                Command="{Binding GetItemsCommand}"/>
+                    </HorizontalStackLayout>
+                </Frame>
+            </Grid>
+        </Frame>
+        <VerticalStackLayout Grid.Row="1"
+                             HorizontalOptions="End">
+            <Label Text="Teljesítendő feladatok"
+                   Margin="10"/>
+            <Switch IsToggled="True"
+                    Margin="10"/>
+        </VerticalStackLayout>
+
+
+        <RefreshView Grid.Row="2"
+                     IsRefreshing="{Binding IsRefreshing}"
+                     Command="{Binding GetItemsCommand}">
+            <CollectionView ItemsSource="{Binding TasksCollection}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Tasks">
+                        <Frame
+                             Padding="8"
+                             Margin="8"
+                            BackgroundColor="AntiqueWhite">
+                            <Grid ColumnDefinitions="auto, *, auto">
+                                <ImageButton 
+                                            CornerRadius="8"
+                                            Grid.Column="0"
+                                            Source="trash.png"
+                                            WidthRequest="50"
+                                            HeightRequest="50"
+                                            BackgroundColor="AntiqueWhite"
+                                            Padding="5"
+                                            Margin="1"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}}, Path=DeleteItemCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                <Frame Grid.Column="1"
+                                 >
+                                    <Label Text="{Binding TaskName}"
+                                               VerticalOptions="Center"/>
+                                </Frame>
+                                <ImageButton
+                                            CornerRadius="8"
+                                            Grid.Column="2"
+                                            Source="check.png"
+                                            BackgroundColor="AntiqueWhite"
+                                            Padding="5"
+                                            Margin="1"
+                                            HeightRequest="50"
+                                            WidthRequest="50"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}}, Path=ChangeTaskCompleteCommand}"
+                                            CommandParameter="{Binding .}"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+    </Grid>
+</ContentPage>
