@@ -75,7 +75,6 @@
                     Margin="10"/>
         </VerticalStackLayout>
 
-
         <RefreshView Grid.Row="2"
                      IsRefreshing="{Binding IsRefreshing}"
                      Command="{Binding GetItemsCommand}">
@@ -121,6 +120,5 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
-
     </Grid>
 </ContentPage>

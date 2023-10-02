@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WhatToDo.Services
+namespace WhatToDo.Constants
 {
     public static class Constants
     {
